@@ -9,8 +9,14 @@ export type ChildImageSharpFluid = {
   srcSetWebp: string;
 };
 
-export type ChildImageSharp = {
+export type ChildImageSharpResize = {
+  src: string;
+}
+
+export type Image = {
+  name: string;
   childImageSharp: {
-    fluid: ChildImageSharpFluid;
+    fluid?: ChildImageSharpFluid;
+    resize?: ChildImageSharpResize;
   };
 };

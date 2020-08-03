@@ -1,24 +1,20 @@
 require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` })
 
-const config = require('./config')
-
-const pathPrefix = config.pathPrefix === '/' ? '' : config.pathPrefix
-
 module.exports = {
-  pathPrefix: config.pathPrefix,
+  pathPrefix: '',
   siteMetadata: {
-    siteUrl: config.siteUrl + pathPrefix,
-    pathPrefix,
-    title: config.siteTitle,
-    titleAlt: config.siteTitleAlt,
-    description: config.siteDescription,
-    logo: config.siteLogo,
-    headline: config.siteHeadline,
-    siteLanguage: config.siteLanguage,
-    ogLanguage: config.ogLanguage,
-    author: config.author,
-    twitter: config.userTwitter,
-    facebook: config.ogSiteName,
+    siteUrl: 'https://www.looneybros.com/',
+    pathPrefix: '',
+    title: 'Looney Bros. Photography',
+    titleAlt: 'Looney Bros. Photography',
+    description: `Because we're in the business of bespoke services, we strive to capture the moments most important to you.`,
+    logo: '/logos/logo-acadia-round.png',
+    headline: 'We turn moments into pixels; pixels into feelings.',
+    siteLanguage: 'en',
+    ogLanguage: 'en_US',
+    author: 'Guillaume Pelletier',
+    twitter: '@epgui',
+    facebook: '',
   },
   plugins: [
     'gatsby-plugin-react-helmet',
@@ -30,13 +26,6 @@ module.exports = {
       options: {
         name: 'projects',
         path: `${__dirname}/content/projects`,
-      },
-    },
-    {
-      resolve: 'gatsby-source-filesystem',
-      options: {
-        name: 'config',
-        path: `${__dirname}/config`,
       },
     },
     {
@@ -57,7 +46,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-google-analytics',
       options: {
-        trackingId: config.googleAnalyticsID,
+        trackingId: 'UA-XXXXXX-X',
       },
     },
     'gatsby-plugin-sharp',
@@ -66,12 +55,12 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
-        name: config.siteTitle,
-        short_name: config.siteTitleShort,
-        description: config.siteDescription,
-        start_url: config.pathPrefix,
-        background_color: config.backgroundColor,
-        theme_color: config.themeColor,
+        name: 'Looney Bros. Photography',
+        short_name: 'Looney Bros. Photography',
+        description: `Because we're in the business of bespoke services, we strive to capture the moments most important to you.`,
+        start_url: '/',
+        background_color: '#3b3c4f',
+        theme_color: '#db7436',
         display: 'standalone',
         icon: 'src/favicon.png',
       },

@@ -1,10 +1,23 @@
-import React from 'react'
-import { config, useSpring } from 'react-spring'
-import Layout from '../components/Layout'
-import { AnimatedBox } from '../elements'
-import SEO from '../components/SEO'
+import React from 'react';
+import { graphql } from 'gatsby';
+import { config, useSpring } from 'react-spring';
+import Layout from '../components/Layout';
+import { AnimatedBox } from '../components/Globals';
+import SEO from '../components/SEO';
+import Bio from '../components/Bio';
+import { Content } from '../templates/Project/style';
+import * as Type from '../types';
 
-const About: React.FC = () => {
+type Props = {
+  data: {
+    seb: Type.Image;
+    guillaume: Type.Image
+  }
+}
+
+const About: React.FC<Props> = props => {
+  const { data: { seb, guillaume }} = props;
+
   const pageAnimation = useSpring({
     config: config.slow,
     from: { opacity: 0 },
@@ -25,14 +38,46 @@ const About: React.FC = () => {
       >
         <h1>About us</h1>
 
-        <p>You can visit my website or my other Gatsby projects:</p>
+        <Bio
+          name="Guillaume Pelletier"
+          title="Partner"
+          image={guillaume}
+        >
+          <p>Guillaume (Billy for you English speakers) is a biochemist and software engineer who picked up photography in 2010. What started as a perfectly respectable hobby accidentally turned into a professional business around the end of 2016.</p>
+          <p>He really loves doing studio photography work, whether it's portraits, macro, or technical product photography. Guillaume takes great pride in his controlled lighting, professional colour management pipeline and time-honed precision processing techniques.</p>
+          <p>Currently accepting work in Vancouver at a rate of $200 per hour (subject to change depending on availabilities and market conditions). Discounts are available for certain types of non-profits and charity organizations.</p>
+        </Bio>
 
-        <p>
-          <a href="https://www.lekoarts.de">Website</a> - <a href="https://themes.lekoarts.de">More projects</a>
-        </p>
+        <Bio
+          name="Sebastien Blanchard"
+          title="Partner"
+          image={seb}
+        >
+          <p>Lorem ipsum dolor sit amet</p>
+        </Bio>
       </AnimatedBox>
     </Layout>
   );
 };
 
 export default About;
+
+export const query = graphql`
+  query AboutUs {
+    seb: file(sourceInstanceName: { eq: "images" }, name: { eq: "seb" }) {
+      childImageSharp {
+        fluid(quality: 95, maxWidth: 900) {
+          ...GatsbyImageSharpFluid_withWebp
+        }
+      }
+    }
+    
+    guillaume: file(sourceInstanceName: { eq: "images" }, name: { eq: "guillaume" }) {
+      childImageSharp {
+        fluid(quality: 95, maxWidth: 900) {
+          ...GatsbyImageSharpFluid_withWebp
+        }
+      }
+    }
+  }
+`;

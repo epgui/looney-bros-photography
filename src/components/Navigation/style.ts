@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { readableColor } from 'polished';
-import { Box, Flex } from '../../elements';
+import { Box, Flex } from '../Globals';
 
 export const SideBarInner = styled(Box)<{ bg: string }>`
   position: fixed;

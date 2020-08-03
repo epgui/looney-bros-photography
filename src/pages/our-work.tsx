@@ -5,19 +5,19 @@ import { config, animated, useSpring } from 'react-spring'
 import Layout from '../components/Layout'
 import GridItem from '../components/GridItem'
 import SEO from '../components/SEO'
-import { ChildImageSharp } from '../types'
+import * as Type from '../types'
 
 type PageProps = {
   data: {
     projects: {
-      nodes: {
-        title: string
-        slug: string
-        cover: ChildImageSharp
-      }[]
-    }
-  }
-}
+      nodes: Array<{
+        title: string;
+        slug: string;
+        cover: Type.Image;
+      }>;
+    };
+  };
+};
 
 const Area = styled(animated.div)`
   display: grid;
@@ -42,15 +42,18 @@ const Projects: React.FunctionComponent<PageProps> = ({ data: { projects } }) =>
       <SEO title="Projects | Jodie" />
       
       <Area style={pageAnimation}>
-        {projects.nodes.map(({ slug, title, cover }) => (
-          <GridItem
-            key={slug}
-            slug={slug}
-            title={title}
-            ariaLabel={`View project "${title}"`}
-            image={cover.childImageSharp.fluid}
-          />
-        ))}
+        {projects.nodes.map(({ slug, title, cover }) => {
+          console.log({ slug, title, cover })
+          return (
+            <GridItem
+              key={slug}
+              slug={slug}
+              title={title}
+              ariaLabel={`View project "${title}"`}
+              image={cover.childImageSharp.fluid}
+            />
+          );
+        })}
       </Area>
     </Layout>
   )

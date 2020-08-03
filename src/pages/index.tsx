@@ -6,7 +6,7 @@ import Layout from '../components/Layout';
 import Grid from '../components/Grid';
 import GridItem from '../components/GridItem';
 import SEO from '../components/SEO';
-import { ChildImageSharp } from '../types';
+import * as Type from '../types';
 
 const ThreeProjects = styled.div`
   grid-area: three-projects;
@@ -22,7 +22,7 @@ const ThreeProjects = styled.div`
 type Project = {
   title: string;
   slug: string;
-  cover: ChildImageSharp;
+  cover: Type.Image;
 }
 
 interface PageProps {
@@ -31,8 +31,8 @@ interface PageProps {
     threeProjects: {
       nodes: Array<Project>
     };
-    aboutUs: ChildImageSharp;
-    instagram: ChildImageSharp;
+    aboutUs: Type.Image;
+    instagram: Type.Image;
   };
 };
 
@@ -59,8 +59,8 @@ const Index: React.FC<PageProps> = ({ data }) => {
         />
 
         <GridItem
-          slug="/about"
-          title="About"
+          slug="/about-us"
+          title="About us"
           gridArea="about-us"
           ariaLabel="Visit my about page"
           image={aboutUs.childImageSharp.fluid}
@@ -105,6 +105,7 @@ export const query = graphql`
         }
       }
     }
+
     threeProjects: allProjectsYaml(limit: 3, skip: 1) {
       nodes {
         title
@@ -118,6 +119,7 @@ export const query = graphql`
         }
       }
     }
+
     aboutUs: file(sourceInstanceName: { eq: "images" }, name: { eq: "about-us" }) {
       childImageSharp {
         fluid(quality: 95, maxWidth: 1200) {
@@ -125,6 +127,7 @@ export const query = graphql`
         }
       }
     }
+    
     instagram: file(sourceInstanceName: { eq: "images" }, name: { eq: "instagram" }) {
       childImageSharp {
         fluid(quality: 95, maxWidth: 1920) {

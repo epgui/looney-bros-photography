@@ -118,15 +118,7 @@ const SEO: React.FC<Props> = ({
         name: 'About',
       },
       position: 3,
-    },
-    {
-      '@type': 'ListItem',
-      item: {
-        '@id': `${siteUrl}/instagram`,
-        name: 'About',
-      },
-      position: 4,
-    },
+    }
   ]
 
   let schemaArticle = null
