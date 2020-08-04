@@ -4,6 +4,7 @@ import Img from 'gatsby-image';
 import { config, useSpring } from 'react-spring';
 import Layout from '../../components/Layout';
 import RichText from '../../components/RichText';
+import AlbumList from '../../components/AlbumList';
 import SEO from '../../components/SEO';
 import CTA from '../../components/CTA';
 import * as Type from '../../types';
@@ -91,6 +92,10 @@ const Project: React.FunctionComponent<PageProps> = ({ data }) => {
         <Styled.Description style={descAnimation}>
           <RichText content={description.json} />
         </Styled.Description>
+
+        {albums && (
+          <AlbumList albums={albums} />
+        )}
       </Styled.PBox>
 
       <Styled.Content bg="black" py={10}>
