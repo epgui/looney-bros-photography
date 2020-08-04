@@ -3,19 +3,24 @@ import { graphql } from 'gatsby';
 import Img from 'gatsby-image';
 import { config, useSpring } from 'react-spring';
 import Layout from '../../components/Layout';
+import RichText from '../../components/RichText';
 import SEO from '../../components/SEO';
 import CTA from '../../components/CTA';
 import * as Type from '../../types';
 import * as Styled from './style';
+
+type Album = any;
 
 export type Category = {
   shortTitle: string;
   longTitle: string;
   slug: string;
   cover: Type.Image;
-  content: {
+  description: {
     json: any;
   }
+  albums: Array<Album>;
+  photos: Array<Type.Image>;
   cta: string;
 }
 
@@ -26,10 +31,15 @@ type PageProps = {
 };
 
 const Project: React.FunctionComponent<PageProps> = ({ data }) => {
-  const { category } = data;
-  const { shortTitle, longTitle, slug, cover, content, cta } = category;
-
-  const images = [];
+  const {
+    longTitle,
+    slug,
+    cover,
+    description,
+    albums,
+    photos,
+    cta
+  } = data.category;
 
   const categoryAnimation = useSpring({
     config: config.slow,
@@ -62,7 +72,7 @@ const Project: React.FunctionComponent<PageProps> = ({ data }) => {
     <Layout dark={true}>
       <SEO
         pathname={slug}
-        title={`${category.longTitle} | Looney Bros. Photography`}
+        title={`${longTitle} | Looney Bros. Photography`}
         desc={""}
         node={""}
         banner={cover.resize.src}
@@ -79,17 +89,17 @@ const Project: React.FunctionComponent<PageProps> = ({ data }) => {
         </Styled.Title>
 
         <Styled.Description style={descAnimation}>
-          <div dangerouslySetInnerHTML={{ __html: "Description" }} />
+          <RichText content={description.json} />
         </Styled.Description>
       </Styled.PBox>
 
       <Styled.Content bg="black" py={10}>
         <Styled.PBox style={imagesAnimation} px={[6, 6, 8, 10]}>
-          {images.map(({ name, childImageSharp }) => (
+          {photos.map(({ fluid }) => (
             <Img
               alt={name}
-              key={childImageSharp.fluid.src}
-              fluid={childImageSharp.fluid}
+              key={fluid.src}
+              fluid={fluid}
             />
           ))}
         </Styled.PBox>
