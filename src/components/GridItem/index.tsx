@@ -4,16 +4,16 @@ import { ChildImageSharpFluid } from '../../types';
 import * as Styled from './style';
 
 interface Props {
-  slug: string;
+  url: string;
   title: string;
   gridArea?: string;
   ariaLabel: string;
   image: ChildImageSharpFluid;
 }
 
-const GridItem: React.FC<Props> = ({ slug, title, gridArea, ariaLabel, image }) => (
+const GridItem: React.FC<Props> = ({ url, title, gridArea, ariaLabel, image }) => (
   <Styled.GridItem
-    to={slug}
+    to={url}
     style={{ gridArea }}
     aria-label={ariaLabel}
   >

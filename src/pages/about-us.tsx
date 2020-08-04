@@ -7,7 +7,7 @@ import * as Globals from '../components/Globals';
 import SEO from '../components/SEO';
 import CTA from '../components/CTA';
 import Bio from '../components/Bio';
-import { PBox } from '../templates/Project/style';
+import { PBox } from '../templates/Category/style';
 import * as Type from '../types';
 
 type Props = {
@@ -160,11 +160,7 @@ const About: React.FC<Props> = props => {
           grown into a serious business offering competitive services, we still
           identify with this original vision and continue to approach our
           craft with the same mindset. We have always sought to learn and
-          improve, and slook forward to doing so moving forward.
-        </p>
-        <p>
-          Though Seb and Guillaume are very good friends, they are not
-          brothers.
+          improve, and look forward to doing so moving forward.
         </p>
 
         <PBox style={{ clear: 'both', textAlign: 'center' }} py={10} px={[6, 6, 8, 10]}>

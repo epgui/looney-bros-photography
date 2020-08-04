@@ -1,9 +1,11 @@
 require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` })
 
+const siteAddress = new URL("https://www.looneybros.com/");
+
 module.exports = {
   pathPrefix: '',
   siteMetadata: {
-    siteUrl: 'https://www.looneybros.com/',
+    siteUrl: siteAddress.href,
     pathPrefix: '',
     title: 'Looney Bros. Photography',
     titleAlt: 'Looney Bros. Photography',
@@ -22,11 +24,10 @@ module.exports = {
     'gatsby-plugin-typescript',
     'gatsby-transformer-yaml',
     {
-      resolve: 'gatsby-source-filesystem',
+      resolve: `gatsby-plugin-canonical-urls`,
       options: {
-        name: 'projects',
-        path: `${__dirname}/content/projects`,
-      },
+        siteUrl: siteAddress.href.slice(0, -1),
+      }
     },
     {
       resolve: 'gatsby-source-filesystem',
@@ -39,8 +40,7 @@ module.exports = {
       resolve: 'gatsby-source-contentful',
       options: {
         spaceId: process.env.GATSBY_CONTENTFUL_SPACE_ID,
-        accessToken: process.env.GATSBY_CONTENTFUL_ACCESS_TOKEN,
-        downloadLocal: true
+        accessToken: process.env.GATSBY_CONTENTFUL_ACCESS_TOKEN
       },
     },
     {
@@ -76,6 +76,14 @@ module.exports = {
           },
         ],
       },
-    }
+    },
+    {
+      resolve: `gatsby-plugin-s3`,
+      options: {
+        bucketName: 'static.looneybros.com',
+        protocol: siteAddress.protocol.slice(0, -1),
+        hostname: siteAddress.hostname,
+      },
+    },
   ],
 }

@@ -1,43 +1,33 @@
 import React from 'react';
 import { graphql } from 'gatsby';
-import styled from 'styled-components';
 import { useSpring, config } from 'react-spring';
+import { Category } from '../templates/Category';
 import Layout from '../components/Layout';
 import Grid from '../components/Grid';
 import GridItem from '../components/GridItem';
 import SEO from '../components/SEO';
 import * as Type from '../types';
 
-const ThreeProjects = styled.div`
-  grid-area: three-projects;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-
-  @media (max-width: ${(props) => props.theme.breakpoints[1]}) {
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-  }
-`
-
-type Project = {
-  title: string;
-  slug: string;
-  cover: Type.Image;
-}
-
 interface PageProps {
   data: {
-    firstProject: Project;
-    threeProjects: {
-      nodes: Array<Project>
-    };
-    aboutUs: Type.Image;
-    instagram: Type.Image;
+    portraiture: Category;
+    weddings: Category;
+    editorial: Category;
+    tinder: Category;
+    animalia: Category;
+    landscapes: Type.Image;
   };
 };
 
 const Index: React.FC<PageProps> = ({ data }) => {
-  const { firstProject, threeProjects, aboutUs, instagram } = data;
+  const {
+    portraiture,
+    weddings,
+    editorial,
+    tinder,
+    animalia,
+    landscapes
+  } = data;
 
   const pageAnimation = useSpring({
     config: config.slow,
@@ -51,39 +41,51 @@ const Index: React.FC<PageProps> = ({ data }) => {
 
       <Grid style={pageAnimation}>
         <GridItem
-          slug={firstProject.slug}
-          title={firstProject.title}
-          gridArea="first-project"
-          ariaLabel={`View project "${firstProject.title}"`}
-          image={firstProject.cover.childImageSharp.fluid}
+          url={`/${portraiture.slug}`}
+          title={portraiture.shortTitle}
+          gridArea="portraiture"
+          ariaLabel={`View project "${portraiture.shortTitle}"`}
+          image={portraiture.cover.fluid}
         />
 
         <GridItem
-          slug="/about-us"
-          title="About us"
-          gridArea="about-us"
-          ariaLabel="Visit my about page"
-          image={aboutUs.childImageSharp.fluid}
+          url={`/${weddings.slug}`}
+          title={weddings.shortTitle}
+          gridArea={"weddings"}
+          ariaLabel={`View project "${weddings.shortTitle}"`}
+          image={weddings.cover.fluid}
         />
 
-        <ThreeProjects>
-          {threeProjects.nodes.map(({ slug, cover, title }: Project) => (
-            <GridItem
-              key={slug}
-              slug={slug}
-              title={title}
-              ariaLabel={`View project "${title}"`}
-              image={cover.childImageSharp.fluid}
-            />
-          ))}
-        </ThreeProjects>
+        <GridItem
+          url={`/${editorial.slug}`}
+          title={editorial.shortTitle}
+          gridArea={"editorial"}
+          ariaLabel={`View project "${editorial.shortTitle}"`}
+          image={editorial.cover.fluid}
+        />
+
+        <GridItem
+          url={`/${tinder.slug}`}
+          title={tinder.shortTitle}
+          gridArea={"tinder"}
+          ariaLabel={`View project "${tinder.shortTitle}"`}
+          image={tinder.cover.fluid}
+        />
+
+        <GridItem
+          url={`/${animalia.slug}`}
+          title={animalia.shortTitle}
+          gridArea={"animalia"}
+          ariaLabel={`View project "${animalia.shortTitle}"`}
+          image={animalia.cover.fluid}
+        />
         
         <GridItem
-          slug="/instagram"
-          title="Instagram"
-          gridArea="instagram"
-          ariaLabel="See my Instagram pictures"
-          image={instagram.childImageSharp.fluid}
+          url={`/${landscapes.slug}`}
+          title={landscapes.shortTitle}
+          gridArea={"landscapes"}
+          ariaLabel={`View project "${landscapes.shortTitle}"`}
+          image={landscapes.cover.fluid}
         />
       </Grid>
     </Layout>
@@ -94,46 +96,28 @@ export default Index;
 
 export const query = graphql`
   query Index {
-    firstProject: projectsYaml {
-      title
-      slug
-      cover {
-        childImageSharp {
-          fluid(quality: 95, maxWidth: 1200) {
-            ...GatsbyImageSharpFluid_withWebp
-          }
-        }
-      }
+    portraiture: contentfulCategory(shortTitle: { eq: "Portraiture" }) {
+      ...Category
     }
 
-    threeProjects: allProjectsYaml(limit: 3, skip: 1) {
-      nodes {
-        title
-        slug
-        cover {
-          childImageSharp {
-            fluid(quality: 95, maxWidth: 1200) {
-              ...GatsbyImageSharpFluid_withWebp
-            }
-          }
-        }
-      }
+    weddings: contentfulCategory(shortTitle: { eq: "Weddings" }) {
+      ...Category
     }
 
-    aboutUs: file(sourceInstanceName: { eq: "images" }, name: { eq: "about-us" }) {
-      childImageSharp {
-        fluid(quality: 95, maxWidth: 1200) {
-          ...GatsbyImageSharpFluid_withWebp
-        }
-      }
+    editorial: contentfulCategory(shortTitle: { eq: "Swim & Editorial" }) {
+      ...Category
     }
     
-    instagram: file(sourceInstanceName: { eq: "images" }, name: { eq: "instagram" }) {
-      childImageSharp {
-        fluid(quality: 95, maxWidth: 1920) {
-          ...GatsbyImageSharpFluid_withWebp
-        }
-      }
+    tinder: contentfulCategory(shortTitle: { eq: "Tinder & Social" }) {
+      ...Category
+    }
+
+    animalia: contentfulCategory(shortTitle: { eq: "Animalia" }) {
+      ...Category
+    }
+
+    landscapes: contentfulCategory(shortTitle: { eq: "Landscapes" }) {
+      ...Category
     }
   }
 `;

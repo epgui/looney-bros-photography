@@ -7,14 +7,18 @@ import GridItem from '../components/GridItem'
 import SEO from '../components/SEO'
 import * as Type from '../types'
 
+type ContentfulCategory = {
+  shortTitle: string;
+  longTitle: string;
+  slug: string;
+  cover: any;
+  content: any;
+}
+
 type PageProps = {
   data: {
-    projects: {
-      nodes: Array<{
-        title: string;
-        slug: string;
-        cover: Type.Image;
-      }>;
+    categories: {
+      nodes: Array<ContentfulCategory>;
     };
   };
 };
@@ -30,7 +34,7 @@ const Area = styled(animated.div)`
   }
 `
 
-const Projects: React.FunctionComponent<PageProps> = ({ data: { projects } }) => {
+const Projects: React.FunctionComponent<PageProps> = ({ data: { categories } }) => {
   const pageAnimation = useSpring({
     config: config.slow,
     from: { opacity: 0 },
@@ -42,18 +46,15 @@ const Projects: React.FunctionComponent<PageProps> = ({ data: { projects } }) =>
       <SEO title="Projects | Looney Bros. Photography" />
       
       <Area style={pageAnimation}>
-        {projects.nodes.map(({ slug, title, cover }) => {
-          console.log({ slug, title, cover })
-          return (
-            <GridItem
-              key={slug}
-              slug={slug}
-              title={title}
-              ariaLabel={`View project "${title}"`}
-              image={cover.childImageSharp.fluid}
-            />
-          );
-        })}
+        {categories.nodes.map(({ slug, shortTitle, cover }) => (
+          <GridItem
+            key={slug}
+            url={`/${slug}`}
+            title={shortTitle}
+            ariaLabel={`View project "${shortTitle}"`}
+            image={cover.fluid}
+          />
+        ))}
       </Area>
     </Layout>
   )
@@ -63,17 +64,9 @@ export default Projects
 
 export const query = graphql`
   query Projects {
-    projects: allProjectsYaml {
+    categories: allContentfulCategory {
       nodes {
-        title
-        slug
-        cover {
-          childImageSharp {
-            fluid(quality: 95, maxWidth: 1200) {
-              ...GatsbyImageSharpFluid_withWebp
-            }
-          }
-        }
+        ...Category
       }
     }
   }
