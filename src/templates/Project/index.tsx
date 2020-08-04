@@ -11,21 +11,22 @@ import * as Styled from './style';
 type PageProps = {
   data: {
     project: {
-      title_detail: string
-      category: string
-      desc: string
-      slug: string
+      title_detail: string;
+      category: string;
+      desc: string;
+      cta: string;
+      slug: string;
       parent: {
-        modifiedTime: string
-        birthTime: string
-      }
+        modifiedTime: string;
+        birthTime: string;
+      };
       cover: Type.Image;
-    }
+    };
     images: {
-      nodes: Array<Type.Image>
-    }
-  }
-}
+      nodes: Array<Type.Image>;
+    };
+  };
+};
 
 const Project: React.FunctionComponent<PageProps> = props => {
   const { data: { project, images }} = props;
@@ -61,7 +62,7 @@ const Project: React.FunctionComponent<PageProps> = props => {
     <Layout dark={true}>
       <SEO
         pathname={project.slug}
-        title={`${project.title_detail} | Jodie`}
+        title={`${project.title_detail} | Looney Bros. Photography`}
         desc={project.desc}
         node={project.parent}
         banner={project.cover.childImageSharp.resize.src}
@@ -95,7 +96,7 @@ const Project: React.FunctionComponent<PageProps> = props => {
       </Styled.Content>
 
       <Styled.PBox style={{ textAlign: 'center' }} py={10} px={[6, 6, 8, 10]}>
-        <CTA color="black" />
+        <CTA color="black" text={project.cta} />
       </Styled.PBox>
     </Layout>
   )
@@ -109,6 +110,7 @@ export const query = graphql`
     category
     desc
     slug
+    cta
     parent {
       ... on File {
         modifiedTime

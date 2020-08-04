@@ -109,6 +109,7 @@ const GlobalStyles = createGlobalStyle`
   ${reset}
 `;
 
+export * from './type';
 export { AnimatedBox } from './Elements/animatedBox';
 export { AnimatedFlex } from './Elements/animatedFlex';
 export { Box } from './Elements/box';
