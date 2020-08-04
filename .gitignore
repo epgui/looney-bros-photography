@@ -4,5 +4,3 @@ public/
 .DS_Store
 yarn-error.log
 .awspublish-dooly-marketing-site
-.env.development
-.env.production
