@@ -39,7 +39,7 @@ export const Title = styled.span`
   display: block;
   font-weight: 700;
   line-height: 1.2em;
-  margin-top: 0.4em;
+  margin-top: 0.6em;
   overflow: hidden;
   text-overflow: ellipsis;
   transition: color 0.3s ease;
