@@ -3,16 +3,24 @@ import Img from 'gatsby-image';
 import { Link } from 'gatsby';
 
 export const Album = styled(Link)`
+  border-radius: 3px;
+  box-shadow: 0px 3px 10px -4px rgba(0,0,0,0.1);
   cursor: pointer;
   margin-bottom: 1em;
   margin-right: 1em;
-  padding-bottom: 0.8em;
+  overflow: hidden;
+  padding: 0.6em;
   text-decoration: none;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
   width: 16em;
+
+  &:hover {
+    box-shadow: 0px 4px 10px -4px rgba(0,0,0,0.3);
+    transform: translate3d(0px, -0.5px, 0px);
+  }
 
   &:hover .title {
   	color: #048ABF;
-  	text-decoration: underline;
   }
 
   &:hover .number-of-items {
