@@ -102,7 +102,7 @@ const Project: React.FunctionComponent<PageProps> = ({ data }) => {
         <Styled.PBox style={imagesAnimation} px={[6, 6, 8, 10]}>
           {photos.map(({ fluid }) => (
             <Img
-              alt={name}
+              alt={""}
               key={fluid.src}
               fluid={fluid}
             />

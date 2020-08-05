@@ -14,5 +14,7 @@ export const AlbumListHeader = styled.div`
 
 export const AlbumList = styled.div`
   display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
   width: 100%;
 `;

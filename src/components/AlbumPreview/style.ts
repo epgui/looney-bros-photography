@@ -4,7 +4,9 @@ import { Link } from 'gatsby';
 
 export const Album = styled(Link)`
   cursor: pointer;
+  margin-bottom: 1em;
   margin-right: 1em;
+  padding-bottom: 0.8em;
   text-decoration: none;
   width: 16em;
 
