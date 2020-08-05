@@ -43,7 +43,7 @@ const Project: React.FunctionComponent<PageProps> = ({ data }) => {
   } = data.category;
 
   const [albumsLoaded, setAlbumsLoaded] = useState(0);
-  const numberOfAlbums = albums.length;
+  const numberOfAlbums = albums ? albums.length : 0;
 
   const onAlbumCoverLoadComplete = () => {
     console.log({ albumsLoaded })
