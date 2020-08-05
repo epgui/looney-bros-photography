@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { graphql } from 'gatsby';
 import Img from 'gatsby-image';
 import { config, useSpring } from 'react-spring';
@@ -41,6 +41,16 @@ const Project: React.FunctionComponent<PageProps> = ({ data }) => {
     photos,
     cta
   } = data.category;
+
+  const [albumsLoaded, setAlbumsLoaded] = useState(0);
+  const numberOfAlbums = albums.length;
+
+  const onAlbumCoverLoadComplete = () => {
+    console.log({ albumsLoaded })
+    setAlbumsLoaded(prevCount => prevCount + 1);
+  }
+
+  const largeImagesLoadingMode = albumsLoaded === numberOfAlbums ? 'eager' : 'lazy';
 
   const categoryAnimation = useSpring({
     config: config.slow,
@@ -94,7 +104,10 @@ const Project: React.FunctionComponent<PageProps> = ({ data }) => {
         </Styled.Description>
 
         {albums && (
-          <AlbumList albums={albums} />
+          <AlbumList
+            albums={albums}
+            onAlbumCoverLoadComplete={onAlbumCoverLoadComplete}
+          />
         )}
       </Styled.PBox>
 
@@ -105,6 +118,7 @@ const Project: React.FunctionComponent<PageProps> = ({ data }) => {
               alt={""}
               key={fluid.src}
               fluid={fluid}
+              loading={largeImagesLoadingMode}
             />
           ))}
         </Styled.PBox>
@@ -126,10 +140,10 @@ export const query = graphql`
     slug
     order
     cover {
-      fluid(quality: 95, maxWidth: 900) {
-        ...GatsbyContentfulFluid_withWebp
+      fluid(quality: 50, maxWidth: 900) {
+        ...GatsbyContentfulFluid_tracedSVG
       }
-      resize(width: 1200, height: 675, quality: 80) {
+      resize(width: 1200, height: 675, quality: 70) {
         src
       }
     }
@@ -140,8 +154,8 @@ export const query = graphql`
       ...Album
     }
     photos {
-      fluid(quality: 95, maxWidth: 1200) {
-        ...GatsbyContentfulFluid_withWebp
+      fluid(quality: 50, maxWidth: 1200) {
+        ...GatsbyContentfulFluid_tracedSVG
       }
     }
     cta

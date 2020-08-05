@@ -5,26 +5,26 @@ import * as Styled from './style';
 
 interface Props {
   albums: Array<ContentfulAlbum>;
+  onAlbumCoverLoadComplete: () => void;
 }
 
-const AlbumList: React.FC<Props> = ({ albums }) => {
-  return (
-    <Styled.AlbumListContainer>
-      <Styled.AlbumListHeader>Albums</Styled.AlbumListHeader>
+const AlbumList: React.FC<Props> = ({ albums, onAlbumCoverLoadComplete }) => (
+  <Styled.AlbumListContainer>
+    <Styled.AlbumListHeader>Albums</Styled.AlbumListHeader>
 
-      <Styled.AlbumList>
-        {albums.map(({ title, slug, cover, photos }) => (
-          <AlbumPreview
-            key={title}
-            slug={slug}
-            cover={cover}
-            title={title}
-            photos={photos}
-          />
-        ))}
-      </Styled.AlbumList>
-    </Styled.AlbumListContainer>
-  );
-};
+    <Styled.AlbumList>
+      {albums.map(({ title, slug, cover, photos }) => (
+        <AlbumPreview
+          key={title}
+          slug={slug}
+          cover={cover}
+          title={title}
+          photos={photos}
+          onAlbumCoverLoadComplete={onAlbumCoverLoadComplete}
+        />
+      ))}
+    </Styled.AlbumList>
+  </Styled.AlbumListContainer>
+);
 
 export default AlbumList;

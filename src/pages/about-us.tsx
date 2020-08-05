@@ -177,32 +177,32 @@ export const query = graphql`
   query AboutUs {
     seb: file(sourceInstanceName: { eq: "images" }, name: { eq: "seb" }) {
       childImageSharp {
-        fluid(quality: 95, maxWidth: 900) {
-          ...GatsbyImageSharpFluid_withWebp
+        fluid(quality: 80, maxWidth: 900) {
+          ...GatsbyImageSharpFluid_withWebp_tracedSVG
         }
       }
     }
     
     guillaume: file(sourceInstanceName: { eq: "images" }, name: { eq: "guillaume" }) {
       childImageSharp {
-        fluid(quality: 95, maxWidth: 900) {
-          ...GatsbyImageSharpFluid_withWebp
+        fluid(quality: 80, maxWidth: 900) {
+          ...GatsbyImageSharpFluid_withWebp_tracedSVG
         }
       }
     }
 
     sebInAction: file(sourceInstanceName: { eq: "images" }, name: { eq: "seb-at-banquet" }) {
       childImageSharp {
-        fluid(quality: 95, maxWidth: 1200) {
-          ...GatsbyImageSharpFluid_withWebp
+        fluid(quality: 80, maxWidth: 1200) {
+          ...GatsbyImageSharpFluid_withWebp_tracedSVG
         }
       }
     }
 
     guillaumeInAction: file(sourceInstanceName: { eq: "images" }, name: { eq: "guillaume-operating-jib-on-speedboat" }) {
       childImageSharp {
-        fluid(quality: 95, maxWidth: 1200) {
-          ...GatsbyImageSharpFluid_withWebp
+        fluid(quality: 80, maxWidth: 1200) {
+          ...GatsbyImageSharpFluid_withWebp_tracedSVG
         }
       }
     }

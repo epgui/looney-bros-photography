@@ -4,12 +4,19 @@ import { faImages } from '@fortawesome/free-regular-svg-icons';
 import { ContentfulAlbum } from '../../templates/Album';
 import * as Styled from './style';
 
-const AlbumPreview: React.FC<ContentfulAlbum> = props => {
-  const { title, slug, cover, photos } = props;
+interface AlbumPreview extends ContentfulAlbum {
+  onAlbumCoverLoadComplete: () => void;
+}
+
+const AlbumPreview: React.FC<AlbumPreview> = props => {
+  const { title, slug, cover, photos, onAlbumCoverLoadComplete } = props;
   
   return (
     <Styled.Album to={`/album/${slug}`}>
-      <Styled.AlbumCover fluid={cover.fluid} />
+      <Styled.AlbumCover
+        fluid={cover.fluid}
+        onLoad={onAlbumCoverLoadComplete}
+      />
 
       <Styled.Title className="title">
         {title}

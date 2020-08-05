@@ -95,6 +95,7 @@ const Project: React.FunctionComponent<PageProps> = ({ data }) => {
               alt={""}
               key={fluid.src}
               fluid={fluid}
+              loading="eager"
             />
           ))}
         </Styled.PBox>
@@ -114,10 +115,10 @@ export const query = graphql`
     title
     slug
     cover {
-      fluid(quality: 95, maxWidth: 1200) {
-        ...GatsbyContentfulFluid_withWebp
+      fluid(quality: 50, maxWidth: 800) {
+        ...GatsbyContentfulFluid_tracedSVG
       }
-      resize(width: 1200, height: 675, quality: 80) {
+      resize(width: 1200, height: 675, quality: 70) {
         src
       }
     }
@@ -125,8 +126,8 @@ export const query = graphql`
       json
     }
     photos {
-      fluid(quality: 95, maxWidth: 1200) {
-        ...GatsbyContentfulFluid_withWebp
+      fluid(quality: 50, maxWidth: 1200) {
+        ...GatsbyContentfulFluid_tracedSVG
       }
     }
     cta
