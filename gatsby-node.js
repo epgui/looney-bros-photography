@@ -10,11 +10,17 @@ const wrapper = promise =>
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
 
+  const albumTemplate = require.resolve('./src/templates/Album/index.tsx')
   const categoryTemplate = require.resolve('./src/templates/Category/index.tsx');
 
   const { data } = await wrapper(
     graphql(`
       {
+        albums: allContentfulAlbum {
+          nodes {
+            slug
+          }
+        }
         categories: allContentfulCategory {
           nodes {
             slug
@@ -23,6 +29,14 @@ exports.createPages = async ({ graphql, actions }) => {
       }
     `)
   );
+
+  data.albums.nodes.forEach(({ slug }) => {
+    createPage({
+      path: `album/${slug}`,
+      component: albumTemplate,
+      context: { slug },
+    });
+  });
 
   data.categories.nodes.forEach(({ slug }) => {
     createPage({

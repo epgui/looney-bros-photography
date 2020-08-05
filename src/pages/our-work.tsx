@@ -1,19 +1,11 @@
-import React from 'react'
-import { graphql } from 'gatsby'
-import styled from 'styled-components'
-import { config, animated, useSpring } from 'react-spring'
-import Layout from '../components/Layout'
-import GridItem from '../components/GridItem'
-import SEO from '../components/SEO'
-import * as Type from '../types'
-
-type ContentfulCategory = {
-  shortTitle: string;
-  longTitle: string;
-  slug: string;
-  cover: any;
-  content: any;
-}
+import React from 'react';
+import { graphql } from 'gatsby';
+import styled from 'styled-components';
+import { config, animated, useSpring } from 'react-spring';
+import { ContentfulCategory } from '../templates/Category';
+import Layout from '../components/Layout';
+import GridItem from '../components/GridItem';
+import SEO from '../components/SEO';
 
 type PageProps = {
   data: {
@@ -41,12 +33,14 @@ const Projects: React.FunctionComponent<PageProps> = ({ data: { categories } }) 
     to: { opacity: 1 },
   })
 
+  const sortedCategories = categories.nodes.sort((a, b) => a.order - b.order);
+
   return (
     <Layout dark={true}>
       <SEO title="Projects | Looney Bros. Photography" />
       
       <Area style={pageAnimation}>
-        {categories.nodes.map(({ slug, shortTitle, cover }) => (
+        {sortedCategories.map(({ slug, shortTitle, cover }) => (
           <GridItem
             key={slug}
             url={`/${slug}`}

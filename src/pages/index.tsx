@@ -1,7 +1,7 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import { useSpring, config } from 'react-spring';
-import { Category } from '../templates/Category';
+import { ContentfulCategory } from '../templates/Category';
 import Layout from '../components/Layout';
 import Grid from '../components/Grid';
 import GridItem from '../components/GridItem';
@@ -10,11 +10,11 @@ import * as Type from '../types';
 
 interface PageProps {
   data: {
-    portraiture: Category;
-    weddings: Category;
-    editorial: Category;
-    tinder: Category;
-    animalia: Category;
+    portraiture: ContentfulCategory;
+    weddings: ContentfulCategory;
+    editorial: ContentfulCategory;
+    tinder: ContentfulCategory;
+    animalia: ContentfulCategory;
     landscapes: Type.Image;
   };
 };

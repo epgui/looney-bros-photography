@@ -2,45 +2,39 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import Img from 'gatsby-image';
 import { config, useSpring } from 'react-spring';
-import { Album } from '../Album';
 import Layout from '../../components/Layout';
 import RichText from '../../components/RichText';
-import AlbumList from '../../components/AlbumList';
 import SEO from '../../components/SEO';
 import CTA from '../../components/CTA';
 import * as Type from '../../types';
 import * as Styled from './style';
 
-export type ContentfulCategory = {
-  shortTitle: string;
-  longTitle: string;
+export type ContentfulAlbum = {
+  title: string;
   slug: string;
-  order: number;
-  cover: Type.Image;
-  description: {
+  cover?: Type.Image;
+  description?: {
     json: any;
-  }
-  albums: Array<Album>;
+  };
   photos: Array<Type.Image>;
-  cta: string;
-}
+  cta?: string;
+};
 
 type PageProps = {
   data: {
-    category: ContentfulCategory;
+    album: ContentfulAlbum;
   };
 };
 
 const Project: React.FunctionComponent<PageProps> = ({ data }) => {
   const {
-    longTitle,
+    title,
     slug,
     cover,
     description,
-    albums,
     photos,
     cta
-  } = data.category;
+  } = data.album;
 
   const categoryAnimation = useSpring({
     config: config.slow,
@@ -73,7 +67,7 @@ const Project: React.FunctionComponent<PageProps> = ({ data }) => {
     <Layout dark={true}>
       <SEO
         pathname={slug}
-        title={`${longTitle} | Looney Bros. Photography`}
+        title={`${title} | Looney Bros. Photography`}
         desc={""}
         node={""}
         banner={cover.resize.src}
@@ -82,20 +76,16 @@ const Project: React.FunctionComponent<PageProps> = ({ data }) => {
 
       <Styled.PBox py={10} px={[6, 6, 8, 10]}>
         <Styled.Category style={categoryAnimation}>
-          Category
+          Album
         </Styled.Category>
 
         <Styled.Title style={titleAnimation}>
-          {longTitle}
+          {title}
         </Styled.Title>
 
         <Styled.Description style={descAnimation}>
           <RichText content={description.json} />
         </Styled.Description>
-
-        {albums && (
-          <AlbumList albums={albums} />
-        )}
       </Styled.PBox>
 
       <Styled.Content bg="black" py={10}>
@@ -120,13 +110,11 @@ const Project: React.FunctionComponent<PageProps> = ({ data }) => {
 export default Project
 
 export const query = graphql`
-  fragment Category on ContentfulCategory {
-    shortTitle
-    longTitle
+  fragment Album on ContentfulAlbum {
+    title
     slug
-    order
     cover {
-      fluid(quality: 95, maxWidth: 900) {
+      fluid(quality: 95, maxWidth: 1200) {
         ...GatsbyContentfulFluid_withWebp
       }
       resize(width: 1200, height: 675, quality: 80) {
@@ -136,9 +124,6 @@ export const query = graphql`
     description {
       json
     }
-    albums {
-      ...Album
-    }
     photos {
       fluid(quality: 95, maxWidth: 1200) {
         ...GatsbyContentfulFluid_withWebp
@@ -147,9 +132,9 @@ export const query = graphql`
     cta
   }
 
-  query CategoryTemplate($slug: String!) {
-    category: contentfulCategory(slug: { eq: $slug }) {
-      ...Category
+  query AlbumTemplate($slug: String!) {
+    album: contentfulAlbum(slug: { eq: $slug }) {
+      ...Album
     }
   }
 `;

@@ -2,10 +2,17 @@ import styled from 'styled-components';
 
 export const AlbumListContainer = styled.div``;
 
-export const AlbumList = styled.div``;
+export const AlbumListHeader = styled.div`
+  border-bottom: 2px solid #EEE;
+  color: #AAA;
+  font-weight: 700;
+  line-height: 1.7em;
+  margin-bottom: 1.2em;
+  margin-top: 2em;
+  text-transform: uppercase;
+`;
 
-export const Title = styled.div``;
-
-export const Album = styled.div``;
-
-export const AlbumCover = styled.div``;
+export const AlbumList = styled.div`
+  display: flex;
+  width: 100%;
+`;
