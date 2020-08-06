@@ -2,14 +2,19 @@ import React, { useState } from 'react';
 import { graphql } from 'gatsby';
 import Img from 'gatsby-image';
 import { config, useSpring } from 'react-spring';
-import { Album } from '../Album';
+import { ContentfulAlbum } from '../Album';
 import Layout from '../../components/Layout';
 import RichText from '../../components/RichText';
-import AlbumList from '../../components/AlbumList';
+import AlbumCollection from '../../components/AlbumCollection';
 import SEO from '../../components/SEO';
 import CTA from '../../components/CTA';
 import * as Type from '../../types';
 import * as Styled from './style';
+
+export type ContentfulAlbumCollection = {
+  title: string;
+  albums: Array<ContentfulAlbum>;
+}
 
 export type ContentfulCategory = {
   shortTitle: string;
@@ -20,7 +25,7 @@ export type ContentfulCategory = {
   description: {
     json: any;
   }
-  albums: Array<Album>;
+  albumCollections: Array<ContentfulAlbumCollection>;
   photos: Array<Type.Image>;
   cta: string;
 }
@@ -37,16 +42,21 @@ const Project: React.FunctionComponent<PageProps> = ({ data }) => {
     slug,
     cover,
     description,
-    albums,
+    albumCollections,
     photos,
     cta
   } = data.category;
 
   const [albumsLoaded, setAlbumsLoaded] = useState(0);
-  const numberOfAlbums = albums ? albums.length : 0;
+
+  const numberOfAlbumsPerCollection: Array<number> =
+    albumCollections?.length > 0 ? albumCollections.map((albumCollection) => (
+      albumCollection?.albums?.length || 0
+    )) : [0];
+
+  const numberOfAlbums = numberOfAlbumsPerCollection.reduce((a, b) => a + b);
 
   const onAlbumCoverLoadComplete = () => {
-    console.log({ albumsLoaded })
     setAlbumsLoaded(prevCount => prevCount + 1);
   }
 
@@ -103,11 +113,16 @@ const Project: React.FunctionComponent<PageProps> = ({ data }) => {
           <RichText content={description.json} />
         </Styled.Description>
 
-        {albums && (
-          <AlbumList
-            albums={albums}
-            onAlbumCoverLoadComplete={onAlbumCoverLoadComplete}
-          />
+        {albumCollections && (
+          <div>
+            {albumCollections.map((albumCollection, key) => (
+              <AlbumCollection
+                key={key}
+                albumCollection={albumCollection}
+                onAlbumCoverLoadComplete={onAlbumCoverLoadComplete}
+              />
+            ))}
+          </div>
         )}
       </Styled.PBox>
 
@@ -134,36 +149,41 @@ const Project: React.FunctionComponent<PageProps> = ({ data }) => {
 export default Project
 
 export const query = graphql`
-  fragment Category on ContentfulCategory {
-    shortTitle
-    longTitle
-    slug
-    order
-    cover {
-      fluid(quality: 50, maxWidth: 900) {
-        ...GatsbyContentfulFluid_tracedSVG
-      }
-      resize(width: 1200, height: 675, quality: 70) {
-        src
-      }
-    }
-    description {
-      json
-    }
-    albums {
-      ...Album
-    }
-    photos {
-      fluid(quality: 50, maxWidth: 1200) {
-        ...GatsbyContentfulFluid_tracedSVG
-      }
-    }
-    cta
-  }
-
   query CategoryTemplate($slug: String!) {
     category: contentfulCategory(slug: { eq: $slug }) {
-      ...Category
+      longTitle
+      slug
+      cover {
+        resize(width: 1200, height: 675, quality: 70) {
+          src
+        }
+      }
+      description {
+        json
+      }
+      albumCollections {
+        title
+        albums {
+          title
+          slug
+          cover {
+            fluid(quality: 60, maxWidth: 800) {
+              ...GatsbyContentfulFluid_withWebp
+            }
+          }
+          photos {
+            fluid(quality: 60, maxWidth: 1200) {
+              ...GatsbyContentfulFluid_withWebp
+            }
+          }
+        }
+      }
+      photos {
+        fluid(quality: 60, maxWidth: 1200) {
+          ...GatsbyContentfulFluid_withWebp
+        }
+      }
+      cta
     }
   }
 `;

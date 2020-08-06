@@ -44,9 +44,11 @@ module.exports = {
       },
     },
     {
-      resolve: 'gatsby-plugin-google-analytics',
+      resolve: `gatsby-plugin-segment-js`,
       options: {
-        trackingId: 'UA-XXXXXX-X',
+        prodKey: process.env.SEGMENT_WRITE_KEY,
+        devKey: null,
+        trackPage: true,
       },
     },
     'gatsby-plugin-sharp',

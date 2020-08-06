@@ -111,31 +111,24 @@ const Project: React.FunctionComponent<PageProps> = ({ data }) => {
 export default Project
 
 export const query = graphql`
-  fragment Album on ContentfulAlbum {
-    title
-    slug
-    cover {
-      fluid(quality: 50, maxWidth: 800) {
-        ...GatsbyContentfulFluid_tracedSVG
-      }
-      resize(width: 1200, height: 675, quality: 70) {
-        src
-      }
-    }
-    description {
-      json
-    }
-    photos {
-      fluid(quality: 50, maxWidth: 1200) {
-        ...GatsbyContentfulFluid_tracedSVG
-      }
-    }
-    cta
-  }
-
   query AlbumTemplate($slug: String!) {
     album: contentfulAlbum(slug: { eq: $slug }) {
-      ...Album
+      title
+      slug
+      cover {
+        resize(width: 1200, height: 675, quality: 70) {
+          src
+        }
+      }
+      description {
+        json
+      }
+      photos {
+        fluid(quality: 60, maxWidth: 1200) {
+          ...GatsbyContentfulFluid_withWebp
+        }
+      }
+      cta
     }
   }
 `;

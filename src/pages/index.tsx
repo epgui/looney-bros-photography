@@ -95,29 +95,40 @@ const Index: React.FC<PageProps> = ({ data }) => {
 export default Index;
 
 export const query = graphql`
+  fragment CategoryPreview on ContentfulCategory {
+    shortTitle
+    slug
+    order
+    cover {
+      fluid(quality: 70, maxWidth: 1200) {
+        ...GatsbyContentfulFluid_withWebp
+      }
+    }
+  }
+
   query Index {
     portraiture: contentfulCategory(shortTitle: { eq: "Portraiture" }) {
-      ...Category
+      ...CategoryPreview
     }
 
     weddings: contentfulCategory(shortTitle: { eq: "Weddings" }) {
-      ...Category
+      ...CategoryPreview
     }
 
     editorial: contentfulCategory(shortTitle: { eq: "Swim & Editorial" }) {
-      ...Category
+      ...CategoryPreview
     }
     
     tinder: contentfulCategory(shortTitle: { eq: "Tinder & Social" }) {
-      ...Category
+      ...CategoryPreview
     }
 
     animalia: contentfulCategory(shortTitle: { eq: "Animalia" }) {
-      ...Category
+      ...CategoryPreview
     }
 
     landscapes: contentfulCategory(shortTitle: { eq: "Landscapes" }) {
-      ...Category
+      ...CategoryPreview
     }
   }
 `;

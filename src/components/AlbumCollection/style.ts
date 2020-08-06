@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-export const AlbumListContainer = styled.div``;
+export const AlbumCollection = styled.div``;
 
-export const AlbumListHeader = styled.div`
+export const Title = styled.div`
   border-bottom: 2px solid #EEE;
   color: #AAA;
   font-weight: 700;

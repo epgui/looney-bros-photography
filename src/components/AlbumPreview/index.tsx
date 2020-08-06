@@ -11,11 +11,14 @@ interface AlbumPreview extends ContentfulAlbum {
 const AlbumPreview: React.FC<AlbumPreview> = props => {
   const { title, slug, cover, photos, onAlbumCoverLoadComplete } = props;
   
+  console.log({ props })
+
   return (
     <Styled.Album to={`/album/${slug}`}>
       <Styled.AlbumCover
         fluid={cover.fluid}
         onLoad={onAlbumCoverLoadComplete}
+        loading="lazy"
       />
 
       <Styled.Title className="title">

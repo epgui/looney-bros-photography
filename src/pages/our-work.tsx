@@ -60,7 +60,7 @@ export const query = graphql`
   query Projects {
     categories: allContentfulCategory {
       nodes {
-        ...Category
+        ...CategoryPreview
       }
     }
   }
