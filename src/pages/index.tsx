@@ -6,7 +6,6 @@ import Layout from '../components/Layout';
 import Grid from '../components/Grid';
 import GridItem from '../components/GridItem';
 import SEO from '../components/SEO';
-import * as Type from '../types';
 
 interface PageProps {
   data: {
@@ -15,7 +14,7 @@ interface PageProps {
     editorial: ContentfulCategory;
     tinder: ContentfulCategory;
     animalia: ContentfulCategory;
-    landscapes: Type.Image;
+    landscapes: ContentfulCategory;
   };
 };
 
@@ -43,6 +42,7 @@ const Index: React.FC<PageProps> = ({ data }) => {
         <GridItem
           url={`/${portraiture.slug}`}
           title={portraiture.shortTitle}
+          textColor={portraiture.textOverlayColor}
           gridArea="portraiture"
           ariaLabel={`View project "${portraiture.shortTitle}"`}
           image={portraiture.cover.fluid}
@@ -51,6 +51,7 @@ const Index: React.FC<PageProps> = ({ data }) => {
         <GridItem
           url={`/${weddings.slug}`}
           title={weddings.shortTitle}
+          textColor={weddings.textOverlayColor}
           gridArea={"weddings"}
           ariaLabel={`View project "${weddings.shortTitle}"`}
           image={weddings.cover.fluid}
@@ -59,6 +60,7 @@ const Index: React.FC<PageProps> = ({ data }) => {
         <GridItem
           url={`/${editorial.slug}`}
           title={editorial.shortTitle}
+          textColor={editorial.textOverlayColor}
           gridArea={"editorial"}
           ariaLabel={`View project "${editorial.shortTitle}"`}
           image={editorial.cover.fluid}
@@ -67,6 +69,7 @@ const Index: React.FC<PageProps> = ({ data }) => {
         <GridItem
           url={`/${tinder.slug}`}
           title={tinder.shortTitle}
+          textColor={tinder.textOverlayColor}
           gridArea={"tinder"}
           ariaLabel={`View project "${tinder.shortTitle}"`}
           image={tinder.cover.fluid}
@@ -75,6 +78,7 @@ const Index: React.FC<PageProps> = ({ data }) => {
         <GridItem
           url={`/${animalia.slug}`}
           title={animalia.shortTitle}
+          textColor={animalia.textOverlayColor}
           gridArea={"animalia"}
           ariaLabel={`View project "${animalia.shortTitle}"`}
           image={animalia.cover.fluid}
@@ -83,6 +87,7 @@ const Index: React.FC<PageProps> = ({ data }) => {
         <GridItem
           url={`/${landscapes.slug}`}
           title={landscapes.shortTitle}
+          textColor={landscapes.textOverlayColor}
           gridArea={"landscapes"}
           ariaLabel={`View project "${landscapes.shortTitle}"`}
           image={landscapes.cover.fluid}
@@ -97,6 +102,7 @@ export default Index;
 export const query = graphql`
   fragment CategoryPreview on ContentfulCategory {
     shortTitle
+    textOverlayColor
     slug
     order
     cover {

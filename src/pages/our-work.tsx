@@ -40,11 +40,12 @@ const Projects: React.FunctionComponent<PageProps> = ({ data: { categories } }) 
       <SEO title="Projects | Looney Bros. Photography" />
       
       <Area style={pageAnimation}>
-        {sortedCategories.map(({ slug, shortTitle, cover }) => (
+        {sortedCategories.map(({ slug, shortTitle, textOverlayColor, cover }) => (
           <GridItem
             key={slug}
             url={`/${slug}`}
             title={shortTitle}
+            textColor={textOverlayColor}
             ariaLabel={`View project "${shortTitle}"`}
             image={cover.fluid}
           />

@@ -18,6 +18,7 @@ export type ContentfulAlbumCollection = {
 
 export type ContentfulCategory = {
   shortTitle: string;
+  textOverlayColor?: string;
   longTitle: string;
   slug: string;
   order: number;
