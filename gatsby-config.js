@@ -131,5 +131,11 @@ module.exports = {
         hostname: siteAddress.hostname,
       },
     },
+    {
+      resolve: 'gatsby-plugin-brotli',
+      options: {
+        extensions: ['css', 'html', 'js', 'svg']
+      }
+    }
   ],
 }

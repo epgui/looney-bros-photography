@@ -115,7 +115,7 @@ const SEO: React.FC<Props> = ({
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: "5",
-      reviewCount: "29"
+      reviewCount: "42"
     },
     review: reviews,
   }
