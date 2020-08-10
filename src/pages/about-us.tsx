@@ -128,7 +128,7 @@ const About: React.FC<Props> = props => {
           activities, covering fundraising and community events in support of
           any number of causes. When word-of-mouth got out of control and
           demand for our services started increasing, the prospect of turning
-          their hobby into a professional business became inevitable; at some
+          our hobby into a professional business became inevitable; at some
           point, we were spending a good 30-40 hours of our own free time per
           week on pro-bono photography, and this just wasn’t sustainable.
         </p>

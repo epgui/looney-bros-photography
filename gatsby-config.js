@@ -10,7 +10,7 @@ module.exports = {
     title: 'Looney Bros. Photography',
     titleAlt: 'Looney Bros. Photography',
     description: `Because we're in the business of bespoke services, we strive to capture the moments most important to you.`,
-    logo: '/logos/logo-acadia-round.png',
+    logo: '/logos/open-graph-image.jpg',
     headline: 'We turn moments into pixels; pixels into feelings.',
     siteLanguage: 'en',
     ogLanguage: 'en_US',
@@ -53,7 +53,10 @@ module.exports = {
     },
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
-    'gatsby-plugin-sitemap',
+    {
+      resolve: 'gatsby-plugin-sitemap',
+      options: {}
+    },
     {
       resolve: 'gatsby-plugin-manifest',
       options: {

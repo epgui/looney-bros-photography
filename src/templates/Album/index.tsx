@@ -30,7 +30,6 @@ const Project: React.FunctionComponent<PageProps> = ({ data }) => {
   const {
     title,
     slug,
-    cover,
     description,
     photos,
     cta
@@ -70,7 +69,6 @@ const Project: React.FunctionComponent<PageProps> = ({ data }) => {
         title={`${title} | Looney Bros. Photography`}
         desc={""}
         node={""}
-        banner={cover.resize.src}
         individual
       />
 

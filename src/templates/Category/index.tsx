@@ -22,7 +22,7 @@ export type ContentfulCategory = {
   longTitle: string;
   slug: string;
   order: number;
-  cover: Type.Image;
+  cover?: Type.Image;
   description: {
     json: any;
   }
@@ -41,7 +41,6 @@ const Project: React.FunctionComponent<PageProps> = ({ data }) => {
   const {
     longTitle,
     slug,
-    cover,
     description,
     albumCollections,
     photos,
@@ -97,7 +96,6 @@ const Project: React.FunctionComponent<PageProps> = ({ data }) => {
         title={`${longTitle} | Looney Bros. Photography`}
         desc={""}
         node={""}
-        banner={cover.resize.src}
         individual
       />
 
@@ -154,11 +152,6 @@ export const query = graphql`
     category: contentfulCategory(slug: { eq: $slug }) {
       longTitle
       slug
-      cover {
-        resize(width: 1200, height: 675, quality: 70) {
-          src
-        }
-      }
       description {
         json
       }
