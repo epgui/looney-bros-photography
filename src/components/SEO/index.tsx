@@ -1,8 +1,9 @@
-import React from 'react'
-import { Helmet } from 'react-helmet'
-import { useStaticQuery, graphql } from 'gatsby'
-import Facebook from './facebook'
-import Twitter from './twitter'
+import React from 'react';
+import { Helmet } from 'react-helmet';
+import { useStaticQuery, graphql } from 'gatsby';
+import Facebook from './facebook';
+import Twitter from './twitter';
+import { reviews } from './reviews';
 
 const defaultNode = {
   modifiedTime: '',
@@ -60,22 +61,47 @@ const SEO: React.FC<Props> = ({
 
   const schemaOrgWebPage = {
     '@context': 'http://schema.org',
-    '@type': 'WebPage',
+    '@type': 'ProfessionalService',
+    name: defaultTitle,
     url: siteUrl,
+    sameAs: [
+      "https://www.facebook.com/LooneyBros/",
+      "https://www.facebook.com/LooneyBrosCalgary/",
+      "https://www.instagram.com/looney.bros.photography/",
+    ],
+    logo: "https://www.looneybros.com/logos/logo-black-transparent.png",
+    priceRange: "$$",
+    image: {
+      '@type': 'ImageObject',
+      url: `${siteUrl}${defaultBanner}`,
+    },
     headline,
+    description: defaultDescription,
     inLanguage: siteLanguage,
     mainEntityOfPage: siteUrl,
-    description: defaultDescription,
-    name: defaultTitle,
+    address: {
+       "@type": "PostalAddress",
+       streetAddress: "69 rue Lorette",
+       addressLocality: "Dieppe",
+       addressRegion: "NB",
+       postalCode: "E1A 2E8",
+       addressCountry: "CA"
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: "46.099718",
+      longitude: "-64.683428"
+    },
+    telephone: "+1 (506) 875-0369",
     author: {
-      '@type': 'Person',
+      "@type": 'Person',
       name: author,
     },
     copyrightHolder: {
       '@type': 'Person',
       name: author,
     },
-    copyrightYear: '2019',
+    copyrightYear: '2020',
     creator: {
       '@type': 'Person',
       name: author,
@@ -84,12 +110,14 @@ const SEO: React.FC<Props> = ({
       '@type': 'Person',
       name: author,
     },
-    datePublished: '2019-03-10T10:30:00+01:00',
+    datePublished: '2020-08-01T00:00:00+00:00',
     dateModified: buildTime,
-    image: {
-      '@type': 'ImageObject',
-      url: `${siteUrl}${defaultBanner}`,
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "5",
+      reviewCount: "29"
     },
+    review: reviews,
   }
 
   // Initial breadcrumb list
