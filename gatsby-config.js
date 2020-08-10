@@ -24,7 +24,7 @@ module.exports = {
     'gatsby-plugin-typescript',
     'gatsby-transformer-yaml',
     {
-      resolve: `gatsby-plugin-canonical-urls`,
+      resolve: 'gatsby-plugin-canonical-urls',
       options: {
         siteUrl: siteAddress.href.slice(0, -1),
       }
@@ -44,7 +44,7 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-plugin-segment-js`,
+      resolve: 'gatsby-plugin-segment-js',
       options: {
         prodKey: process.env.SEGMENT_WRITE_KEY,
         devKey: null,
@@ -55,7 +55,48 @@ module.exports = {
     'gatsby-transformer-sharp',
     {
       resolve: 'gatsby-plugin-sitemap',
-      options: {}
+      options: {
+        output: '/sitemap.xml',
+        query: `{
+          site {
+            siteMetadata {
+              siteUrl
+            }
+          }
+          allSitePage {
+            nodes {
+              path
+            }
+          }
+        }`,
+        serialize: ({ site, allSitePage }) => {
+          return [
+            ...allSitePage.nodes.map(node => {
+              const { path } = node;
+
+              let priority = 0.7;
+
+              if (path.startsWith("/album/"))
+                priority = 0.5;
+
+              else if (path === "/about-us/")
+                priority = 0.9;
+
+              else if (path === "/our-work/")
+                priority = 0.9;
+
+              else if (path === '/')
+                priority = 1.0;
+
+              return ({
+                url: site.siteMetadata.siteUrl + path,
+                changefreq: 'daily',
+                priority,
+              });
+            })
+          ];
+        },
+      }
     },
     {
       resolve: 'gatsby-plugin-manifest',
@@ -83,7 +124,7 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-plugin-s3`,
+      resolve: 'gatsby-plugin-s3',
       options: {
         bucketName: 'static.looneybros.com',
         protocol: siteAddress.protocol.slice(0, -1),
